@@ -3,18 +3,24 @@ from functions import *
 while True:
 	option = input("Option (h for help): ")
 	if option == 'h':
-		_help()
-	if option == 'a':
+		help1()
+	elif option == 'a':
 		addEmployee()
-	if option == 'd':
+	elif option == 'd':
 		deleteEmployee()		
-	if option == 'u':
+	elif option == 'u':
 		updateEmployee()
-	if option == 'g':
+	elif option == 'g':
 		getEmployee()
-	if option == 'p':
+	elif option == 'p':
 		printAllEmployees()
-	if option == 'pd':
+	elif option == 'gd':
+		getDepartment()
+	elif option == 'pd':
 		printDepartments()
-	if option == 'q':
+	elif option == 'l':
+		loadFile()
+	elif option == 's':
+		saveProgram()
+	elif option == 'q':
 		break

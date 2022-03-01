@@ -1,18 +1,35 @@
 from Employee import Employee
 from Department import Department
 from collections import OrderedDict
-
+import csv
 
 class UsedIdError(Exception): pass
 class TypeIdError(Exception): pass
 class MissingIdError(Exception): pass
 
-def _help():
+def help1():
 	print("h\t for this menu")
 	print("a\t to add an employee")
 	print("u\t to update an employee")
 	print("g\t to get an employee")
+	print("p\t to get all employee information")
+	print("gd\t to get a specific department information")
+	print("pd\t to get all department information")
+	print("l\t to load a file into the program")
+	print("s\t to save the program into a file")
 	print("q\t to quit the program")
+
+def addEmployeeWithInfo(id, first_name, last_name, DOE, salary, department):
+	global employees
+	if id in employees[0]:
+		raise UsedIdError
+	employee = Employee(id, first_name, last_name, DOE, salary, department)
+	employees.append(employee)
+	employees[0][id] = len(employees) -1
+	
+	if department not in departments:
+		addDepartment(department, 0, 0)
+	departments[department].addEmployee(employee)
 
 def addEmployee():
 	global employees
@@ -127,11 +144,29 @@ employees = getEmployees()
 
 
 
+def loadFile():
+		name = input("Enter name of file (this will create or overwrite the file): ")
+		with open(name, 'r') as file:
+			reader = csv.reader(file)
 
+			next(reader)
+			for row in reader:
+				addEmployeeWithInfo(row[0], row[1], row[2], row[3], row[4], row[5])
+				#employees.append(Employee(id, first_name, last_name, DOE, salary, department)
+				#writer.writerow([employee.id, employee.first_name, employee.last_name, employee.salary, employee.department])
 
+def saveProgram():
+	try:
+		name = input("Enter name of file (this will create or overwrite the file): ")
+		with open(name, 'wt') as file:
+			writer = csv.writer(file)
 
-
-
+			writer.writerow(['id', 'first name', 'last name', 'DOE', 'salary', 'department'])
+			for employee in employees[1:]:
+				writer.writerow([employee.id, employee.first_name, employee.last_name, employee.DOE, employee.salary, employee.department])
+			#[writer.writerow([employee.id, employee.first_name, employee.last_name, employee.salary, employee.department]) for employee in employee[1:]]
+	except:
+		print("General error")
 
 
 
@@ -155,10 +190,13 @@ def deleteDepartment():
 	name = input("Department name: ")
 	departments.pop(name)
 
-def printDepartments():
+def getDepartment():
 	name = input("Department name: ")
 	if name in departments:
 		departments[name].info()
+
+def printDepartments():
+	[department.info() for key, department in departments.items()]
 
 def getDepartments():
 	return OrderedDict()

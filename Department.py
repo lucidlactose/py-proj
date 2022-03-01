@@ -19,5 +19,8 @@ class Department:
 		self.phone = phone
 
 	def info(self):
+		print("Department: ", self.name)
+		print("Budget: ", self.budget)
+		print("Employee List: ")
 		print("Id\t|Name\t\t|DOE\t|Salary")
 		[employee.sInfo() for key, employee in self.employees.items()]
