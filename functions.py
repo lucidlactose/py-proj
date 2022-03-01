@@ -188,6 +188,8 @@ def addDepartment(name, budget, phone):
 def deleteDepartment():
 	global departments
 	name = input("Department name: ")
+	for key, employee in departments[name].employees.items():
+		employee.department = None
 	departments.pop(name)
 
 def getDepartment():

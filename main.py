@@ -14,6 +14,8 @@ while True:
 		getEmployee()
 	elif option == 'p':
 		printAllEmployees()
+	elif option == 'dd':
+		deleteDepartment()
 	elif option == 'gd':
 		getDepartment()
 	elif option == 'pd':
